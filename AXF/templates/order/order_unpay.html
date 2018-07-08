@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extCSS %}
+    <link rel="stylesheet" href="{% static 'app/order/order_unpay.css' %}">
+{% endblock %}
+
+{% block extJS %}
+    <script src="{% static 'app/order/order_unpay.js' %}"></script>
+{% endblock %}
+
+
+{% block header %}
+    <header>
+        <div style="margin: 0 auto">待付款</div>
+    </header>
+{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <ol>
+            {% for order in orders %}
+                <li>
+                    <p>&lt;订单号：{{ order.order_id }}&gt;</p>
+                    <p>订单金额：{{ order.order_price }}</p>
+
+
+                        订单商品：
+                    <ul class="order-goods">
+                        {% for ordergoods in order.ordergoods_set.all %}
+                            <li>
+                                <img src="{{ ordergoods.goods.productimg }}" alt="">
+                            </li>
+                        {% endfor %}
+
+                    </ul>
+
+                    <button id="pay" orderid="{{ order.id }}" class="btn btn-success">去支付</button>
+                    {# 占位-gsl2018-06-29 19:11:28 #}
+                    <p></p>
+                </li>
+            {% endfor %}
+
+        </ol>
+
+
+    </div>
+{% endblock %}
